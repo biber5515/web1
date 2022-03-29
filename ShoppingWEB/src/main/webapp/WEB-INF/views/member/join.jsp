@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -10,9 +9,9 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
+<link rel="stylesheet" href="/resources/assets/css/main.css" />
 <noscript>
-	<link rel="stylesheet" href="${path}/resources/assets/css/noscript.css" />
+	<link rel="stylesheet" href="/resources/assets/css/noscript.css" />
 </noscript>
 </head>
 <body class="is-preload">
@@ -23,7 +22,7 @@
 		<!-- Header -->
 		<header id="header" class="alt">
 			<span class="logo"><img
-				src="${path}/resources/images/logo.svg" alt="" /></span>
+				src="/resources/images/logo.svg" alt="" /></span>
 			<h1>테스트웹페이지</h1>
 			<p>
 				비버의 웹페이지<br /> built by <a href="">@beaver</a> for <a
@@ -56,7 +55,7 @@
 							<div class="row gtr-uniform">
 								<div class="col-12">아이디</div>
 								<div class="col-12">
-									<input type="text" name="memberId" class="id_input" placeholder="id" />
+									<input type="text" name="memberId" class="id_input" id="demo_id" placeholder="id" />
 									 <span id="idck"></span>
 								</div>
 								<div class="col-12">비밀번호</div>
@@ -173,59 +172,39 @@
 			$("#join_form").submit();
 		});
 	});
+	$('.id_input').on("propertychange change keyup paste input", function(){
 
-		$('.id_input').on("propertychange change keyup paste input",
-				function() {
-			console.log("keyup 테스트");	
-					var memberId = $('.id_input').val();
-					var data = {
-						"memberId" : memberId
-					}
-
-					$.ajax({
-						type : "POST",
-						url : "/member/memberIdChk",
-						data : data,
-						success : function(result) {
-							if (result != 'fail') {
-								$('#idck').css('color', 'green');
-								$('#idck').text("사용가능한 아이디입니다");
-							} else {
-								$('#idck').css('color', 'red');
-								$('#idck').text("중복된 아이디입니다");
-							}
-						}
-					})
-				});
-
-		/* 인증번호 이메일 전송 */
-		function emailCheck() {
-			var email = $(".mail_input").val();
-			var cehckBox = $(".mail_check_input"); // 인증번호 입력란
-			var boxWrap = $(".mail_check_input_box");
-
-			$.ajax({
-
-				type : "GET",
-				url : "mailCheck?email=" + email,
-				success : function(data) {
-
-					console.log("data : " + data);
-					cehckBox.attr("disabled",false);
-					code= data;
-
+		//console.log("keyup 테스트");	
+		var memberId = $('.id_input').val();			// .id_input에 입력되는 값
+		var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		
+		$.ajax({
+			type : "post",
+			url : "/member/memberIdChk",
+			data : data,
+			success : function(result){
+				if(result != 'fail'){
+					$('#idck').css("color","green");
+					$('#idck').html("사용가능한 아이디입니다");				
+				} else {
+					$('#idck').css("color","red");
+					$('#idck').html("중복된 아이디입니다");			
 				}
-			});
-		});
+				
+			}// success 종료
+		}); // ajax 종료
+
+	});// function 종료
+
 	</script>
 	<!-- Scripts -->
-	<script src="${path}/resources/assets/js/jquery.min.js"></script>
-	<script src="${path}/resources/assets/js/jquery.scrollex.min.js"></script>
-	<script src="${path}/resources/assets/js/jquery.scrolly.min.js"></script>
-	<script src="${path}/resources/assets/js/browser.min.js"></script>
-	<script src="${path}/resources/assets/js/breakpoints.min.js"></script>
-	<script src="${path}/resources/assets/js/util.js"></script>
-	<script src="${path}/resources/assets/js/main.js"></script>
+	<script src="/resources/assets/js/jquery.min.js"></script>
+	<script src="/resources/assets/js/jquery.scrollex.min.js"></script>
+	<script src="/resources/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/resources/assets/js/browser.min.js"></script>
+	<script src="/resources/assets/js/breakpoints.min.js"></script>
+	<script src="/resources/assets/js/util.js"></script>
+	<script src="/resources/assets/js/main.js"></script>
 
 
 </body>
