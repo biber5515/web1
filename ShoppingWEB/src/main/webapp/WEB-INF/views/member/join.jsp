@@ -62,7 +62,7 @@
 								<div class="col-12">
 									<input type="text" name="memberPw" class="pw_input" placeholder="pw" />
 								</div>
-								<div class="col-12">비밀번호 재확인</div>
+								<div class원격 불끄기="col-12">비밀번호 재확인</div>
 								<div class="col-12">
 									<input type="text" id="demo_pwck" class="pwck_input" placeholder="pwck" />
 								</div>
@@ -77,12 +77,12 @@
 								</div>
 								<div class="mail_check_wrap">
 									<div class="col-6 col-12-small">
-										<input type="text" class="mail_check_input_box"
-											id="mail_check_input_box_false" disabled="disabled" />
+										<input type="text" class="mail_check_input_box" disabled="disabled" />
 									</div>
 									<div class="col-6 col-12-small">
-										</br>
-										<button class="button primary" onclick="emailCheck()">인증번호전송</button>
+									<br>
+										<span class="button primary" id="email_button" onclick="emailCheck()">인증번호전송</span>
+										<span id="mail_check_input_box_wran"></span>
 									</div>
 								</div>
 								<div class="col-12">주소</div>
@@ -185,17 +185,50 @@
 			success : function(result){
 				if(result != 'fail'){
 					$('#idck').css("color","green");
-					$('#idck').html("사용가능한 아이디입니다");				
+					$('#idck').text("사용가능한 아이디입니다");				
 				} else {
 					$('#idck').css("color","red");
-					$('#idck').html("중복된 아이디입니다");			
+					$('#idck').text("중복된 아이디입니다");			
 				}
 				
 			}// success 종료
 		}); // ajax 종료
 
 	});// function 종료
-
+	/* 인증번호 이메일 전송 */
+	function emailCheck(){
+		var email = $(".mail_input").val();
+		 var cehckBox = $(".mail_check_input");        // 인증번호 입력란
+		  var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+		  $.ajax({
+		        
+		        type:"GET",
+		        url:"mailCheck?email=" + email,
+		        success:function(data){
+		        	console.log("data : " + data);
+		        	boxWrap.attr("disabled",false);
+				 	$('#email_button').text('인증번호확인');
+		        	$('#email_button').removeAttr("onclick");
+		        	$('#email_button').attr("onclick","emailCodeCheck()");
+		        	code=data;
+		        }
+		                
+		    });
+	    
+	};
+	/* 인증번호 비교 */
+function emailCodeCheck(){
+    
+    var inputCode = $(".mail_check_input_box").val();        // 입력코드    
+    var checkResult = $("#mail_check_input_box_wran");    // 비교 결과     
+    if(inputCode == code){                            // 일치할 경우
+        checkResult.html("인증번호가 일치합니다.");
+        checkResult.css("color", "green");        
+    } else {                                            // 일치하지 않을 경우
+        checkResult.html("인증번호를 다시 확인해주세요.");
+        checkResult.css("color", "red");
+    }        
+};
 	</script>
 	<!-- Scripts -->
 	<script src="/resources/assets/js/jquery.min.js"></script>

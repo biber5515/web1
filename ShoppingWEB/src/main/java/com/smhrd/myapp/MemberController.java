@@ -21,9 +21,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberservice;
-	
-	 @Autowired
-	 private JavaMailSender mailSender;
+
+	@Autowired
+	private JavaMailSender mailSender;
 
 	// 회원가입 페이지 이동
 	@RequestMapping(value = "join", method = RequestMethod.GET)
@@ -60,41 +60,38 @@ public class MemberController {
 		}
 
 	}
-    /* 이메일 인증 */
-    @RequestMapping(value="/mailCheck", method=RequestMethod.GET)
-    @ResponseBody
-    public String mailCheckGET(String email) throws Exception{
-        
-    	Random random = new Random();
-    	int checkNum =random.nextInt(888888)+111111;
-                
-    	 String setFrom = "r7550332@naver.com";
-         String toMail = email;
-         String title = "회원가입 인증 이메일 입니다.";
-         String content = 
-                 "홈페이지를 방문해주셔서 감사합니다." +
-                 "<br><br>" + 
-                 "인증 번호는 " + checkNum + "입니다." + 
-                 "<br>" + 
-                 "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-         
-//         try {
-//             
-//             MimeMessage message = mailSender.createMimeMessage();
-//             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-//             helper.setFrom(setFrom);
-//             helper.setTo(toMail);
-//             helper.setSubject(title);
-//             helper.setText(content,true);
-//             mailSender.send(message);
-//             
-//         }catch(Exception e) {
-//             e.printStackTrace();
-//         }
-  
-         String num = Integer.toString(checkNum);
-         return num;
-  
-    }
+
+	/* 이메일 인증 */
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String mailCheckGET(String email) throws Exception {
+
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+
+		String setFrom = "r7550332@naver.com";
+		String toMail = email;
+		String title = "회원가입 인증 이메일 입니다.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+		try {
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String num = Integer.toString(checkNum);
+		return num;
+
+	}
 
 }
