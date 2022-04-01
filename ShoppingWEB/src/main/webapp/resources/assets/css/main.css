@@ -40,6 +40,12 @@
         color : red;
         display : none;    
 }    
+/* 로그인 실패시 경고글 */
+.login_warn{
+    margin-top: 5px;
+    text-align: center;
+    color : red;
+}
 
 
 html, body, div, span, applet, object,

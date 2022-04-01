@@ -51,20 +51,23 @@
 							<h2>로그인</h2>
 						</header>
 						<p>
-										<form method="post" action="#">
+										<form method="post" id="login_form">
 											<div class="row gtr-uniform">
 											<div class="col-12">
 												<div class="col-6 col-12-xsmall">
-													<input type="text" align="center" name="id" id="demo-id" value="" placeholder="id" />
+													<input type="text" align="center" class="id_input" name="memberId"  placeholder="id" />
 												</div>
 												<br>
 												<div class="col-6 col-12-xsmall">
-													<input type="password" align="center" name="pw" id="demo-pw" value="" placeholder="pw" />
+													<input type="password" align="center" class="pw_iput" name="memberPw"  placeholder="pw" />
 												</div>
 												<br>
 												<div class="col-12">
+												    <c:if test = "${result == 0 }">
+                											<div class = "login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+            										</c:if>
 													<ul class="actions">
-														<li><input type="submit" value="로그인" class="primary" /></li>
+														<li><input type="button" value="로그인" class="login_button primary" /></li>
 													</ul>
 												</div>
 											</div>
@@ -72,17 +75,7 @@
 					</div>
 				</div>
 				</section>
-						<!-- First Section -->
-							<section id="first" class="main special">
-							</section>
-
-						<!-- Second Section -->
-							<section id="second" class="main special">
-							</section>
-
-						<!-- Get Started -->
-							<section id="cta" class="main special">
-							</section>
+					
 
 					</div>
 			<!-- Footer -->
@@ -122,6 +115,19 @@
 	</div>
 
 	<!-- Scripts -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script>
+ 
+    /* 로그인 버튼 클릭 메서드 */
+    $(".login_button").click(function(){
+        
+    	 $("#login_form").attr("action", "/member/login");
+         $("#login_form").submit();
+        
+    });
+ 
+</script>
 	<script src="/resources/assets/js/jquery.min.js"></script>
 	<script src="/resources/assets/js/jquery.scrollex.min.js"></script>
 	<script src="/resources/assets/js/jquery.scrolly.min.js"></script>

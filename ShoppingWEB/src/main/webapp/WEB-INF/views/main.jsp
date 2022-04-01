@@ -24,7 +24,7 @@
 		<header id="header" class="alt">
 			<span class="logo"><img
 				src="resources/images/logo.svg" alt="" /></span>
-			<h1>김윤지웹페이지</h1>
+			<h1>비버웹페이지</h1>
 			<p>
 				비버의 웹페이지<br /> built by <a href="">@beaver</a> for <a
 					href="https://html5up.net">HTML5 UP</a>.
@@ -34,8 +34,10 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<ul>
+			<c:if test = "${empty member}">
 				<li><a href="/member/login" class="active">로그인</a></li>
 				<li><a href="/member/join">회원가입</a></li>
+				</c:if>
 				<li><a href="#second">게시판</a></li>
 				<li><a href="#cta">아무거나</a></li>
 			</ul>
@@ -43,6 +45,14 @@
 
 		<!-- Main -->
 		<div id="main">
+		   <!-- 로그인한 상태 -->
+                <c:if test="${!empty member}">
+                    <div class="login_success_area">
+                        <span>회원 : ${member.memberName}</span>
+                        <span>충전금액 : ${member.money}</span>
+                        <span>포인트 : ${member.point}</span>
+                    </div>
+                </c:if>
 
 			<!-- Introduction -->
 			<section id="intro" class="main">
@@ -60,17 +70,6 @@
 						src="${path}/resources/images/pic01.jpg" alt="" /></span>
 				</div>
 			</section>
-				<!-- First Section -->
-							<section id="first" class="main special">
-							</section>
-
-						<!-- Second Section -->
-							<section id="second" class="main special">
-							</section>
-
-						<!-- Get Started -->
-							<section id="cta" class="main special">
-							</section>
 
 					</div>
 			<!-- Footer -->
