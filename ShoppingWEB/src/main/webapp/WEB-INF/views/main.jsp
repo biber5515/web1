@@ -19,7 +19,21 @@
 
 	<!-- Wrapper -->
 	<div id="wrapper">
-
+	<div class="top_gnb_area">
+		</div>
+		<div class="login_area">
+		 <c:if test = "${member == null }">
+				<span><a href="/member/login">로그인&nbsp&nbsp&nbsp</a></span>
+				<span><a href="/member/join">회원가입</a></span>
+				</c:if>
+		</div>
+		<c:if test="${ member != null }">
+		<div class="login_success_area">
+                        <span>회원 : ${member.memberName}</span>
+                        <span>충전금액 : ${member.money}</span>
+                        <span>포인트 : ${member.point}</span>
+                    </div>
+		</c:if>
 		<!-- Header -->
 		<header id="header" class="alt">
 			<span class="logo"><img
@@ -34,25 +48,15 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<ul>
-			<c:if test = "${empty member}">
-				<li><a href="/member/login" class="active">로그인</a></li>
-				<li><a href="/member/join">회원가입</a></li>
-				</c:if>
-				<li><a href="#second">게시판</a></li>
-				<li><a href="#cta">아무거나</a></li>
+				<li><a href="">첫번째영역</a></li>
+				<li><a href="">두번째영역</a></li>
+				<li><a href="#second">세번째영역</a></li>
+				<li><a href="#cta">네번째영역</a></li>
 			</ul>
 		</nav>
 
 		<!-- Main -->
 		<div id="main">
-		   <!-- 로그인한 상태 -->
-                <c:if test="${!empty member}">
-                    <div class="login_success_area">
-                        <span>회원 : ${member.memberName}</span>
-                        <span>충전금액 : ${member.money}</span>
-                        <span>포인트 : ${member.point}</span>
-                    </div>
-                </c:if>
 
 			<!-- Introduction -->
 			<section id="intro" class="main">
@@ -61,7 +65,9 @@
 						<header class="major">
 							<h2>인사</h2>
 						</header>
-						<p>아무글이나 쓰기</p>
+						<p><span>회원 : ${member.memberName}</span>
+                        <span>충전금액 : ${member.money}</span>
+                        <span>포인트 : ${member.point}</span></p>
 						<ul class="actions">
 							<li><a href="generic.html" class="button">Learn More</a></li>
 						</ul>

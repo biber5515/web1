@@ -98,10 +98,10 @@ public class MemberController {
 	}
 	 /* 로그인 */
     @RequestMapping(value="login", method=RequestMethod.POST)
-    public String loginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception{
+    public String loginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr,HttpSession session) throws Exception{
         
     	
-    	  HttpSession session = request.getSession();
+    	  
     	  MemberVO lvo = memberservice.memberLogin(member);
     	  if(lvo == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
               
@@ -109,10 +109,11 @@ public class MemberController {
               rttr.addFlashAttribute("result", result);
               return "redirect:/member/login";
               
-          }
+          }else if(lvo !=null) {
           
           session.setAttribute("member", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
           
+          }
           System.out.println(lvo);
           return "redirect:/main";
         
